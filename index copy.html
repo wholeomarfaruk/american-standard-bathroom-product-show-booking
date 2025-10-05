@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tap-to-Color Visualizer | American Standard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 1. TYPOGRAPHY & BRANDING */
+        /* Poppins for readability, Antonio for boldness/headers */
+        @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f8f8; /* Soft background */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex-grow: 1;
+        }
+
+        /* 2. LAYOUT & COMPONENTS */
+
+        /* Header/Logo Animation (Adjusted for better final placement) */
+        .my-logo-popup-animation {
+            width: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%; /* Start centered */
+            transform: translate(-50%, -50%);
+            animation-name: centertotopleft;
+            animation-duration: 1.4s;
+            animation-delay: 1.2s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes centertotopleft {
+            from {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            to {
+                top: 15px;
+                left: 20px;
+                width: 160px;
+                transform: translate(0, 0); /* Move to top-left corner */
+            }
+        }
+
+        /* Color Circles - Added texture and improved size */
+        .color-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid #f8f8f8; /* White border for lift */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            background-size: cover !important; /* Ensure texture images fill */
+            background-position: center !important;
+        }
+
+        .color-circle:hover {
+            transform: scale(1.1);
+            border-color: #007bff; /* Primary Accent on hover */
+        }
+        
+        /* Active Color State (Optional: to be handled by JS/Bootstrap active classes if complex) */
+        /* .color-circle.active {
+            border-color: #007bff;
+            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5); 
+        } */
+
+
+        /* Image Preview - Cleaner look */
+        .image-preview {
+            max-width: 100%;
+            height: auto;
+            border: none !important;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Tabs - Professional & Distinct */
+        ul#bathroomTabs {
+            justify-content: center;
+            border-bottom: none;
+            margin-bottom: 2rem !important;
+        }
+
+        ul#bathroomTabs .nav-link {
+            border: 1px solid rgb(202, 200, 200);
+            font-size: 1.2rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            color: #495057;
+            font-weight: 600;
+            margin: 0 5px; /* Spacing between tabs */
+            transition: all 0.3s;
+        }
+
+        ul#bathroomTabs .nav-link.active {
+            color: #fff;
+            background-color: #007bff; /* Primary Accent Color */
+            border-color: #007bff;
+            box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        /* 3. CTA BUTTONS */
+        .two-btns a,
+        .two-btns button {
+            flex-grow: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+        
+        /* Primary CTA: Book a Visit (Solid Blue) */
+        .two-btns .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        /* Secondary CTA: Save Image (Outline Gray) */
+        .two-btns .btn-outline-secondary {
+            border-color: #ced4da;
+            color: #6c757d;
+        }
+
+
+        /* 4. PRELOADER */
+        .loader-mask {
+            /* ... (keep preloader mask styles largely the same) ... */
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #000000;
+            z-index: 99999;
+            height: 100vh;
+            width: 100vw;
+        }
+        .loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+        }
+        .loader div {
+            /* ... (keep loader circle styles largely the same) ... */
+            background-color: #fff;
+            border: none;
+            box-shadow: none;
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="loader-mask">
+        <div class="loader">
+            <div class="my-logo-popup-animation">
+                <h1 style="font-family: 'Antonio', sans-serif; color: #007bff; font-size: 40px; text-align: center; margin-top: 35px;">AS</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-4">
+        <ul class="nav nav-tabs" id="bathroomTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="bathroomA-tab" data-bs-toggle="tab" data-bs-target="#bathroomA"
+                    type="button" role="tab">Bathroom A</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="bathroomB-tab" data-bs-toggle="tab" data-bs-target="#bathroomB"
+                    type="button" role="tab">Bathroom B</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="bathroomC-tab" data-bs-toggle="tab" data-bs-target="#bathroomC"
+                    type="button" role="tab">Bathroom C</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="bathroomTabsContent">
+            <div class="tab-pane fade show active" id="bathroomA" role="tabpanel">
+                <div class="row">
+                    <div class="col-lg-8 mb-4 text-center">
+                        <img id="bathroomA-img" src="asset/images/Bathroom Mockup 1_Polished Cool Sunrise.jpg"
+                            class="image-preview" alt="Bathroom A Finish Visualizer">
+                    </div>
+
+                    <div class="col-lg-4">
+                        <h4 class="mb-3">Select Faucet Finish:</h4>
+                        
+                        <div class="row g-4 text-center mb-4">
+                            <div class="col-4 col-md-3 col-lg-6">
+                                <div class="color-circle mx-auto" 
+                                    style="background:url('asset/images/color/Matte-Black.jpg');"
+                                    onclick="changeImage('bathroomA', 'asset/images/Bathroom Mockup 4_Matte Black.jpg')"></div>
+                                <p class="mt-2 fw-semibold lead">Matte Black</p>
+                            </div>
+                            <div class="col-4 col-md-3 col-lg-6">
+                                <div class="color-circle mx-auto" 
+                                    style="background:url('asset/images/color/Polished-Cool-Sunrise.jpg');"
+                                    onclick="changeImage('bathroomA', 'asset/images/Bathroom Mockup 1_Polished Cool Sunrise.jpg')"></div>
+                                <p class="mt-2 fw-semibold lead">Cool Sunrise</p>
+                            </div>
+                            <div class="col-4 col-md-3 col-lg-6">
+                                <div class="color-circle mx-auto" 
+                                    style="background:#b0b0b0;"
+                                    onclick="changeImage('bathroomA', 'asset/images/Bathroom Mockup 2_Polished Warm Sunset.jpg')"></div>
+                                <p class="mt-2 fw-semibold lead">Brushed Nickel</p>
+                            </div>
+                            <div class="col-4 col-md-3 col-lg-6">
+                                <div class="color-circle mx-auto" 
+                                    style="background:url('asset/images/color/Brushed-Hard-Graphite.jpg');"
+                                    onclick="changeImage('bathroomA', 'asset/images/Bathroom Mockup 3_Brushed hard Graphite.jpg')"></div>
+                                <p class="mt-2 fw-semibold lead">Polished Graphite</p>
+                            </div>
+                            <div class="col-4 col-md-3 col-lg-6">
+                                <div class="color-circle mx-auto" 
+                                    style="background:#ccc;"
+                                    onclick="changeImage('bathroomA', 'asset/images/Bathroom Mockup 4_Matte Black.jpg')"></div>
+                                <p class="mt-2 fw-semibold lead">Chrome</p>
+                            </div>
+                            
+                            </div>
+
+
+                        <div class="d-grid gap-3 two-btns mt-3">
+                            <a class="btn btn-outline-secondary shadow-sm save-image" href="asset/images/Bathroom Mockup 1_Polished Cool Sunrise.jpg" download>Save Image</a>
+                            <button class="btn btn-primary shadow-sm" data-bs-toggle="modal"
+                                data-bs-target="#visitModal">Book a Visit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade text-center" id="bathroomB" role="tabpanel">
+                 <p class="text-muted">Content for Bathroom B goes here, or use the same optimized structure.</p>
+                 <img id="bathroomB-img" src="asset/images/Bathroom Mockup 1_Polished Cool Sunrise.jpg" class="image-preview mb-3" alt="Bathroom B">
+            </div>
+
+            <div class="tab-pane fade text-center" id="bathroomC" role="tabpanel">
+                <p class="text-muted">Content for Bathroom C goes here, or use the same optimized structure.</p>
+                <img id="bathroomC-img" src="asset/images/Bathroom Mockup 1_Polished Cool Sunrise.jpg" class="image-preview mb-3" alt="Bathroom C">
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-3 mt-auto border-top">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-0 text-muted">&copy; 2025 All Rights Reserved | Developed by <a href="#" class="text-decoration-none">HaxCode IT</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="visitModal" tabindex="-1" aria-labelledby="visitModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" id="contact-form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="visitModalLabel">Book a Visit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input name="name" type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input name="email" type="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone</label>
+                        <input name="phone" type="tel" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Subject</label>
+                        <input name="subject" type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Preferred Date</label>
+                        <input name="appointment" type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Centralized function to change the image for any tab
+        function changeImage(tabId, newImageUrl) {
+            // 1. Update the image source
+            let imgElement = document.getElementById(tabId + '-img');
+            if (imgElement) {
+                imgElement.src = newImageUrl;
+            }
+
+            // 2. Update the "Save Image" link for that tab
+            const tabPane = document.getElementById(tabId);
+            if (tabPane) {
+                const saveLink = tabPane.querySelector('.save-image');
+                if (saveLink) {
+                    saveLink.setAttribute('href', newImageUrl);
+                    
+                    // Optional: Get the file name for a better download name
+                    const filename = newImageUrl.substring(newImageUrl.lastIndexOf('/') + 1);
+                    saveLink.setAttribute('download', 'Design_' + filename);
+                }
+            }
+        }
+
+        // Preloader Animation Script
+        $(window).ready(function () {
+            // Animates the loader content (your logo)
+            $('.loader div').delay(1200).animate({
+                top: '15px',
+                left: '20px',
+                width: '160px',
+                height: 'auto',
+                opacity: 1,
+                transform: 'translate(0, 0)' // Overwrite the JS centering
+            }, 1400);
+            
+            // Fades out the black mask
+            $('.loader-mask').delay(2400).fadeOut(500); 
+
+            // Initialize the download link for the first tab
+            changeImage('bathroomA', 'asset/images/Bathroom Mockup 1_Polished Cool Sunrise.jpg');
+            changeImage('bathroomB', 'asset/images/Bathroom Mockup 1_Polished Cool Sunrise.jpg');
+            changeImage('bathroomC', 'asset/images/Bathroom Mockup 1_Polished Cool Sunrise.jpg');
+        });
+
+    </script>
+    <script>
+		$(document).ready(function () {
+			$('form#contact-form').submit(function (event) {
+				event.preventDefault();
+				var formData = $(this).serialize();
+				$.ajax({
+					type: 'POST',
+					url: 'server/sendmail.php',
+					data: formData,
+					success: function (data) {
+						$('#contact-form-message').html(data);
+						$('#contact-form-message').show();
+						$('form#contact-form')[0].reset();
+					}
+				});
+			});
+		});
+	</script>
+</body>
+
+</html>
