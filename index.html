@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>American Standard</title>
+    <link rel="shortcut icon" href="asset/images/logo/logo-white.png" type="image/x-icon">
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -128,6 +129,11 @@
             /* transform: scale(1.01); */
             transition: all 0.3s ease-in-out;
         }
+#productsTabsContent ul li button.active {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+}
 
         #productsTabsContent ul li button {
             background: rgba(0, 0, 0, 0.176);
@@ -181,7 +187,6 @@
             margin: -25px 0 0 -25px;
             text-indent: -9999em;
             transform: translateZ(0);
-
         }
 
         .lead {
@@ -237,6 +242,11 @@
                 transform: scale(1);
             }
         } */
+       ul#mainTabsNav .nav-item .nav-link.active {
+            color: #ffffff !important;
+            background-color: #0d6efd !important;
+            border-color: #0d6efd !important;
+        }
     </style>
 </head>
 
@@ -253,11 +263,11 @@
         </div>
     </div>
     <!-- Preloader -->
-    <div class=" container py-4">
+    <div class="container" style="padding-top: 130px; padding-bottom: 50px; max-width: 992px;">
         <!-- <h3 class="text-center mb-4">Tap-to-Color</h3> -->
 
         <!-- Tabs -->
-        <ul class="nav nav-tabs justify-content-center mt-5" id="mainTabsNav" role="tablist">
+        <ul class="nav nav-tabs justify-content-center mt-5 maintab_nav" id="mainTabsNav" role="tablist">
             <li class="nav-item flex-grow-1" role="presentation">
                 <button class="nav-link active" id="products-tab" data-bs-toggle="tab" data-bs-target="#products"
                     type="button" role="tab">Product</button>
@@ -278,7 +288,7 @@
                 <ul class="nav nav-tabs justify-content-center mt-5" id="singleproductsTabs" role="tablist">
                     <li class="nav-item" role="presentation"
                         style="background: url('asset/images/products/Bain-Mixer_Matte_Black.jpg') !important; background-size: cover !important;">
-                        <button class="nav-link" id="p1-tab" data-bs-toggle="tab" data-bs-target="#p1" type="button"
+                        <button class="nav-link active" id="p1-tab" data-bs-toggle="tab" data-bs-target="#p1" type="button"
                             role="tab"><span class="title text-white">Basin Mixer</span></button>
                     </li>
                     <li class="nav-item" role="presentation"
@@ -317,21 +327,24 @@
                                     style="background:url('asset/images/color/Polished-Cool-Sunrise.jpg');  background-size: cover;"
                                     onclick="changeImage('asset/images/products/Bain-Mixer_Polished-Cool-Sunrise.jpg','p1')">
                                 </div>
-                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Cool Sunrise</p>
+                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Cool Sunrise
+                                </p>
                             </div>
                             <div>
                                 <div class="color-circle mx-auto"
                                     style="background:url('asset/images/color/Polished-Warm-Sunset.jpg'); background-size: cover;"
                                     onclick="changeImage('asset/images/products/Bain-Mixer_Polished-Warm-Sunset.jpg','p1')">
                                 </div>
-                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Warm Sunset</p>
+                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Warm Sunset
+                                </p>
                             </div>
 
                         </div>
 
 
                         <div class="d-flex justify-content-center gap-3 two-btns mt-3">
-                            <a class="btn btn-outline-secondary shadow-sm save-image" href="asset//images/products/Bain-Mixer_Matte_Black.jpg" download>Save
+                            <a class="btn btn-outline-secondary shadow-sm save-image"
+                                href="asset//images/products/Bain-Mixer_Matte_Black.jpg" download>Save
                                 Moodboard</a>
                             <button class="btn btn-outline-secondary shadow-sm" data-bs-toggle="modal"
                                 data-bs-target="#visitModal">Book a Visit</button>
@@ -355,19 +368,22 @@
                                     style="background:url('asset/images/color/Polished-Cool-Sunrise.jpg');  background-size: cover;"
                                     onclick="changeImage('asset/images/products/Deck-Mount_Polished-Cool-Sunrise.jpg','p2')">
                                 </div>
-                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Pollished Cool Sunrise</p>
+                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Pollished Cool Sunrise
+                                </p>
                             </div>
                             <div>
                                 <div class="color-circle mx-auto"
                                     style="background:url('asset/images/color/Polished-Hard-Graphite.jpg'); background-size: cover;"
                                     onclick="changeImage('asset/images/products/Deck-Mount_Brushed-Hard-Graphite.jpg','p2')">
                                 </div>
-                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Hard Graphite</p>
+                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Hard Graphite
+                                </p>
                             </div>
 
                         </div>
                         <div class="d-flex justify-content-center gap-3 two-btns mt-3">
-                            <a class="btn btn-outline-secondary shadow-sm save-image" href="asset/images/products/Deck-Mount_Matte-Black.jpg" download>Save
+                            <a class="btn btn-outline-secondary shadow-sm save-image"
+                                href="asset/images/products/Deck-Mount_Matte-Black.jpg" download>Save
                                 Moodboard</a>
                             <button class="btn btn-outline-secondary shadow-sm" data-bs-toggle="modal"
                                 data-bs-target="#visitModal">Book a Visit</button>
@@ -391,26 +407,30 @@
                                     style="background:url('asset/images/color/Polished-Cool-Sunrise.jpg');  background-size: cover;"
                                     onclick="changeImage('asset/images/products/Hand-Shower-with-Mixer_Polished-Cool-Sunrise.jpg','p3')">
                                 </div>
-                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Cool Sunrise</p>
+                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Cool Sunrise
+                                </p>
                             </div>
                             <div>
                                 <div class="color-circle mx-auto"
                                     style="background:url('asset/images/color/Polished-Warm-Sunset.jpg'); background-size: cover;"
                                     onclick="changeImage('asset/images/products/Hand-Shower-with-Mixer_Polished-Warm-Sunset.jpg','p3')">
                                 </div>
-                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Warm Sunset</p>
+                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Warm Sunset
+                                </p>
                             </div>
                             <div>
                                 <div class="color-circle mx-auto"
                                     style="background:url('asset/images/color/Polished-Hard-Graphite.jpg'); background-size: cover;"
                                     onclick="changeImage('asset/images/products/Hand-Shower-with-Mixer_Brushed-Hard-Graphite.jpg','p3')">
                                 </div>
-                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Brushed Hard Graphite</p>
+                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Brushed Hard Graphite
+                                </p>
                             </div>
 
                         </div>
                         <div class="d-flex justify-content-center gap-3 two-btns mt-3">
-                            <a class="btn btn-outline-secondary shadow-sm save-image" href="asset/images/products/Hand-Shower-with-Mixer_Matte-Black.jpg" download>Save
+                            <a class="btn btn-outline-secondary shadow-sm save-image"
+                                href="asset/images/products/Hand-Shower-with-Mixer_Matte-Black.jpg" download>Save
                                 Moodboard</a>
                             <button class="btn btn-outline-secondary shadow-sm" data-bs-toggle="modal"
                                 data-bs-target="#visitModal">Book a Visit</button>
@@ -421,33 +441,37 @@
                         <img id="bathroomC-img" src="/asset/images/products/Wall-Mount_Polished-Cool-Sunrise.jpg"
                             class="image-preview mb-3" alt="Bathroom C">
                         <div class="d-flex justify-content-start gap-5 flex-wrap my-3">
-                           
-                           
+
+
                             <div>
                                 <div class="color-circle mx-auto"
                                     style="background:url('asset/images/color/Polished-Cool-Sunrise.jpg');  background-size: cover;"
                                     onclick="changeImage('asset/images/products/Wall-Mount_Polished-Cool-Sunrise.jpg','p4')">
                                 </div>
-                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Cool Sunrise</p>
+                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Cool Sunrise
+                                </p>
                             </div>
                             <div>
                                 <div class="color-circle mx-auto"
                                     style="background:url('asset/images/color/Polished-Warm-Sunset.jpg'); background-size: cover;"
                                     onclick="changeImage('asset/images/products/Wall-Mount_Polished-Warm-Sunset.jpg','p4')">
                                 </div>
-                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Warm Sunset</p>
+                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Polished Warm Sunset
+                                </p>
                             </div>
                             <div>
                                 <div class="color-circle mx-auto"
                                     style="background:url('asset/images/color/Polished-Hard-Graphite.jpg'); background-size: cover;"
                                     onclick="changeImage('asset/images/products/Wall-Mount_Polished-Hard-Graphite.jpg','p4')">
                                 </div>
-                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Brushed Hard Graphite</p>
+                                <p class="text-center" style="font-size: 18px; margin-top: 4px;">Brushed Hard Graphite
+                                </p>
                             </div>
 
                         </div>
                         <div class="d-flex justify-content-center gap-3 two-btns mt-3">
-                            <a class="btn btn-outline-secondary shadow-sm save-image" href="asset/images/products/Wall-Mount_Polished-Cool-Sunrise.jpg" download>Save
+                            <a class="btn btn-outline-secondary shadow-sm save-image"
+                                href="asset/images/products/Wall-Mount_Polished-Cool-Sunrise.jpg" download>Save
                                 Moodboard</a>
                             <button class="btn btn-outline-secondary shadow-sm" data-bs-toggle="modal"
                                 data-bs-target="#visitModal">Book a Visit</button>
@@ -493,7 +517,8 @@
 
                 </div>
                 <div class="d-flex justify-content-center gap-3 two-btns mt-3">
-                    <a class="btn btn-outline-secondary shadow-sm save-image" href="asset/images/bathroom/Bathroom Mockup 4_Matte Black.jpg" download>Save
+                    <a class="btn btn-outline-secondary shadow-sm save-image"
+                        href="asset/images/bathroom/Bathroom Mockup 4_Matte Black.jpg" download>Save
                         Moodboard</a>
                     <button class="btn btn-outline-secondary shadow-sm" data-bs-toggle="modal"
                         data-bs-target="#visitModal">Book a Visit</button>
@@ -575,17 +600,16 @@
         $(window).ready(function () {
 
             $('.loader div').delay(1200).animate({
-
-                top: '-40px',
+                top: '10px',
                 left: '0',
                 right: '0',
-                width: '120px',
-                height: '120px',
+                width: '100px',
+                height: '100px',
                 transform: 'translate(-50%, -50%)'
             }, 1400);
             $('.loader-mask').delay(2000).animate({
                 top: '0px',
-                height: '30px'
+                height: '80px'
             }, 500,);
 
         });
